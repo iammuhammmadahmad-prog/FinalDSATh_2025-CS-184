@@ -67,4 +67,4 @@ $Paths | ForEach-Object { Write-Host "  $_" }
 
 Write-Host ""
 Write-Host "Done. Activate with:  .\.venv\Scripts\Activate.ps1"
-Write-Host "Then run the app with: python apps\manage.py runserver"
+Write-Host "Then run the app with: python manage.py runserver"
