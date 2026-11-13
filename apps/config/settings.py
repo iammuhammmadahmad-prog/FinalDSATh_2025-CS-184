@@ -12,13 +12,11 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 
 from pathlib import Path
 import os
-
-from django.core.exceptions import ImproperlyConfigured
+import warnings
 from dotenv import load_dotenv
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env')
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -79,26 +77,85 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD')
-if MYSQL_PASSWORD is None:
-    raise ImproperlyConfigured(
-        'Set the MYSQL_PASSWORD environment variable before starting Django.'
-    )
 
+
+# Database Configuration
+# Primary: MySQL 8.0+
+# Fallback: SQLite
+
+MYSQL_HOST = os.getenv('MYSQL_HOST', '127.0.0.1')
+MYSQL_PORT = int(os.getenv('MYSQL_PORT', '3306'))
+MYSQL_DATABASE = os.getenv('MYSQL_DATABASE', 'django_logging_system')
+MYSQL_USER = os.getenv('MYSQL_USER', 'root')
+MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD', '')
+
+# SQLite is the default fallback
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+mysql_connection = None
+
+try:
+    import MySQLdb
+
+    # Attempt MySQL connection
+    mysql_connection = MySQLdb.connect(
+        host=MYSQL_HOST,
+        port=MYSQL_PORT,
+        user=MYSQL_USER,
+        passwd=MYSQL_PASSWORD,
+        db=MYSQL_DATABASE,
+        connect_timeout=3,
+        charset='utf8mb4',
+    )
+
+    # Get MySQL server version
+    version_string = mysql_connection.get_server_info()
+
+    version_parts = tuple(
+        int(part) for part in version_string.split('.')[:3]
+    )
+
+    print(f'[DATABASE] Detected MySQL: {version_string}')
+
+    # Django 5.2 requires MySQL 8.0.11+
+    if version_parts < (8, 0, 11):
+        raise RuntimeError(
+            f'MySQL 8.0.11+ required. Found {version_string}'
+        )
+
+    # Select MySQL
+    DATABASES['default'] = {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('MYSQL_DATABASE', 'django_logging_system'),
-        'USER': os.getenv('MYSQL_USER', 'root'),
+        'NAME': MYSQL_DATABASE,
+        'USER': MYSQL_USER,
         'PASSWORD': MYSQL_PASSWORD,
-        'HOST': os.getenv('MYSQL_HOST', '127.0.0.1'),
-        'PORT': os.getenv('MYSQL_PORT', '3306'),
+        'HOST': MYSQL_HOST,
+        'PORT': str(MYSQL_PORT),
         'OPTIONS': {
             'charset': 'utf8mb4',
         },
     }
-}
 
+    print('[DATABASE] MySQL selected successfully.')
+
+except Exception as e:
+
+    warnings.warn(
+        f'MySQL unavailable or incompatible: {e}. '
+        'Switching to SQLite.',
+        RuntimeWarning,
+    )
+
+    print('[DATABASE] SQLite selected.')
+
+finally:
+    if mysql_connection is not None:
+        mysql_connection.close()
 
 # Password validation
 # https://docs.djangoproject.com/en/6.1/ref/settings/#auth-password-validators
