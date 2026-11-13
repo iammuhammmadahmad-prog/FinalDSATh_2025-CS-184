@@ -1,0 +1,399 @@
+
+/* =========================
+   GLOBAL STYLES
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f5f9;
+    color: #1e293b;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/* =========================
+   AUTHENTICATION PAGES
+   Login and Signup
+========================= */
+
+.auth-container,
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+}
+
+.auth-card,
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+}
+
+.brand {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.brand-icon {
+    width: 52px;
+    height: 52px;
+    background: #2563eb;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    border-radius: 12px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.brand h1 {
+    font-size: 27px;
+    margin-bottom: 9px;
+}
+
+.brand p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+
+/* Form fields */
+
+.auth-card form p,
+.login-card form .form-group {
+    margin-bottom: 19px;
+}
+
+.auth-card form p label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.auth-card form input,
+.login-card input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.auth-card form input:focus,
+.login-card input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+
+/* Django password help text */
+
+.helptext {
+    display: block;
+    color: #64748b;
+    font-size: 12px;
+    margin-top: 7px;
+    line-height: 1.6;
+}
+
+.auth-card ul {
+    padding-left: 18px;
+}
+
+.auth-card ul.errorlist {
+    color: #dc2626;
+    font-size: 12px;
+    margin: 5px 0 8px;
+}
+
+
+/* Buttons */
+
+.primary-button,
+.login-button {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.primary-button:hover,
+.login-button:hover {
+    background: #1d4ed8;
+}
+
+
+/* Authentication links */
+
+.auth-link,
+.signup-link {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.auth-link a,
+.signup-link a {
+    color: #2563eb;
+    font-weight: 600;
+}
+
+.auth-link a:hover,
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+
+/* Errors */
+
+.error-message {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+    padding: 11px;
+    border-radius: 7px;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+
+/* Footer */
+
+.footer {
+    text-align: center;
+    border-top: 1px solid #e2e8f0;
+    margin-top: 28px;
+    padding-top: 18px;
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+
+/* =========================
+   HOME DASHBOARD
+========================= */
+
+.navbar {
+    min-height: 70px;
+    background: #ffffff;
+    padding: 0 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.nav-icon {
+    background: #2563eb;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.logout-button {
+    padding: 9px 17px;
+    border: 1px solid #dc2626;
+    background: white;
+    color: #dc2626;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.logout-button:hover {
+    background: #dc2626;
+    color: white;
+}
+
+
+/* Main dashboard */
+
+.dashboard-container {
+    max-width: 1100px;
+    margin: 55px auto;
+    padding: 0 25px;
+}
+
+.welcome-section {
+    margin-bottom: 35px;
+}
+
+.section-label {
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+}
+
+.welcome-section h1 {
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+.welcome-section > p:last-child {
+    color: #64748b;
+    font-size: 15px;
+}
+
+
+/* Dashboard cards */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+}
+
+.dashboard-card {
+    background: #ffffff;
+    padding: 28px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.card-icon {
+    width: 40px;
+    height: 40px;
+    background: #eff6ff;
+    color: #2563eb;
+    border-radius: 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+
+.dashboard-card h3 {
+    font-size: 18px;
+    margin-bottom: 23px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 13px;
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-row span {
+    color: #64748b;
+}
+
+.info-row strong {
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.status-active {
+    color: #16a34a;
+}
+
+
+/* Dashboard footer */
+
+.dashboard-footer {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 13px;
+    margin-top: 60px;
+    padding: 20px;
+    border-top: 1px solid #e2e8f0;
+}
+
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+@media (max-width: 650px) {
+
+    .auth-card,
+    .login-card {
+        padding: 28px 22px;
+    }
+
+    .navbar {
+        padding: 15px 5%;
+        gap: 12px;
+    }
+
+    .nav-brand {
+        font-size: 15px;
+    }
+
+    .nav-user {
+        gap: 10px;
+    }
+
+    .dashboard-container {
+        margin-top: 35px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome-section h1 {
+        font-size: 24px;
+    }
+
+}
